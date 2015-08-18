@@ -19,6 +19,7 @@ RUN cd /opt && rm -f android-sdk_r24.3.3-linux.tgz
 
 # Setup environment
 ENV ANDROID_HOME /opt/android-sdk-linux
+ENV ANDROID_SDK_HOME /opt/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/java/jdk1.7/bin
 
 # Git to pull external repositories of Android app projects
