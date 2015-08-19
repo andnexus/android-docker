@@ -20,8 +20,11 @@ RUN cd /opt && rm -f android-sdk_r24.3.3-linux.tgz
 # Setup environment
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV ANDROID_SDK_HOME /opt/android-sdk-linux
-ENV ANDROID_AVD_HOME /root/.android/avd
+ENV ANDROID_AVD_HOME /opt/android-sdk-linux/.android/avd
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/java/jdk1.7/bin
+
+# Show environment variables
+RUN export
 
 # Make sure AVD path exists as otherwise we'll fail to create an SD card
 RUN mkdir -p $ANDROID_AVD_HOME
