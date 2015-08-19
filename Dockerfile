@@ -20,7 +20,18 @@ RUN cd /opt && rm -f android-sdk_r24.3.3-linux.tgz
 # Setup environment
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV ANDROID_SDK_HOME /opt/android-sdk-linux
+ENV ANDROID_AVD_HOME /root/.android/avd
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/java/jdk1.7/bin
+
+# Make sure AVD path exists as otherwise we'll fail to create an SD card
+RUN mkdir -p $ANDROID_AVD_HOME
+
+# Avoid emulator assumes HOME as '/'.
+ENV HOME /root
+ADD wait-for-emulator /usr/local/bin/
+RUN chmod +x /usr/local/bin/wait-for-emulator
+ADD start-emulator /usr/local/bin/
+RUN chmod +x /usr/local/bin/start-emulator
 
 # Some preparation before update
 RUN apt-get install -y --no-install-recommends git
@@ -57,13 +68,6 @@ RUN echo "no" | android create avd \
                 --skin WVGA800 \
                 --sdcard 512M \
                 --tag google_apis
-
-# Avoid emulator assumes HOME as '/'.
-ENV HOME /root
-ADD wait-for-emulator /usr/local/bin/
-RUN chmod +x /usr/local/bin/wait-for-emulator
-ADD start-emulator /usr/local/bin/
-RUN chmod +x /usr/local/bin/start-emulator
 
 # GO to workspace
 RUN mkdir -p /opt/workspace
