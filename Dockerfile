@@ -44,6 +44,9 @@ RUN echo "y" | android update sdk --filter sys-img-armeabi-v7a-addon-google_apis
 # Available SDK targets
 RUN android list targets
 
+# All SDK components
+android list sdk --extended --no-ui --all
+
 # Create emulator
 RUN echo "no" | android create avd \
                 --force \
