@@ -22,14 +22,23 @@ ENV ANDROID_HOME /opt/android-sdk-linux
 ENV ANDROID_SDK_HOME /opt/android-sdk-linux
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/java/jdk1.7/bin
 
-# Git to pull external repositories of Android app projects
+# Some preparation before update
 RUN apt-get install -y --no-install-recommends git
+RUN chown -R root:root /opt/android-sdk-linux
 
-# Install SDK components
-RUN echo "y" | android update sdk \
-                --all \
-                --no-ui \
-                --filter platform-tools,build-tools-23.0.0,android-23,addon-google_apis-google-23,extra-android-support,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services,sys-img-armeabi-v7a-addon-google_apis-google-23
+# Install latest android tools and system images
+RUN echo "y" | android update sdk --filter tools --no-ui --force
+RUN echo "y" | android update sdk --filter platform-tools --no-ui --force
+RUN echo "y" | android update sdk --filter platform --no-ui --force
+RUN echo "y" | android update sdk --filter extra-android-support --no-ui -a
+RUN echo "y" | android update sdk --filter extra-android-m2repository --no-ui -a
+RUN echo "y" | android update sdk --filter extra-google-m2repository --no-ui -a
+RUN echo "y" | android update sdk --filter extra-google-google_play_services --no-ui -a
+
+RUN echo "y" | android update sdk --filter build-tools-23.0.0 --no-ui -a
+RUN echo "y" | android update sdk --filter android-23 --no-ui -a
+RUN echo "y" | android update sdk --filter sys-img-armeabi-v7a-addon-google_apis-google-23 --no-ui -a
+RUN echo "y" | android update sdk --filter addon-google_apis-google-23 --no-ui -a
 
 # Available SDK targets
 RUN android list targets
@@ -44,6 +53,11 @@ RUN echo "no" | android create avd \
                 --skin WVGA800 \
                 --sdcard 512M \
                 --tag google_apis
+
+# Update ADB
+RUN echo "y" | android update adb
+RUN adb kill-server
+RUN adb start-server
 
 # GO to workspace
 RUN mkdir -p /opt/workspace
