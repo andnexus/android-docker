@@ -49,7 +49,6 @@ RUN echo "no" | android create avd \
                 --device "Nexus 5" \
                 --name test \
                 --target "Google Inc.:Google APIs:23" \
-                --abi armeabi-v7a \
                 --skin WVGA800 \
                 --sdcard 512M \
                 --tag google_apis
