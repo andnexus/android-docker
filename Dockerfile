@@ -27,7 +27,7 @@ RUN apt-get install -y --no-install-recommends git
 RUN chown -R root:root /opt/android-sdk-linux
 
 # All SDK components
-android list sdk --extended --no-ui --all
+RUN android list sdk --extended --no-ui --all
 
 # Install latest android tools and system images
 RUN echo "y" | android update sdk --filter tools --no-ui --force
