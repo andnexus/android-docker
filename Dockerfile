@@ -61,7 +61,9 @@ RUN echo "no" | android create avd \
 # Avoid emulator assumes HOME as '/'.
 ENV HOME /root
 ADD wait-for-emulator /usr/local/bin/
+RUN chmod +x /usr/local/bin/wait-for-emulator
 ADD start-emulator /usr/local/bin/
+RUN chmod +x /usr/local/bin/start-emulator
 
 # GO to workspace
 RUN mkdir -p /opt/workspace
