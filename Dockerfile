@@ -55,10 +55,10 @@ RUN echo "no" | android create avd \
                 --sdcard 512M \
                 --tag google_apis
 
-# Update ADB
-RUN echo "y" | android update adb
-RUN adb kill-server
-RUN adb start-server
+# Avoid emulator assumes HOME as '/'.
+ENV HOME /root
+ADD wait-for-emulator /usr/local/bin/
+ADD start-emulator /usr/local/bin/
 
 # GO to workspace
 RUN mkdir -p /opt/workspace
