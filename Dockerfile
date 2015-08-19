@@ -34,11 +34,12 @@ RUN echo "y" | android update sdk --filter extra-android-support --no-ui -a
 RUN echo "y" | android update sdk --filter extra-android-m2repository --no-ui -a
 RUN echo "y" | android update sdk --filter extra-google-m2repository --no-ui -a
 RUN echo "y" | android update sdk --filter extra-google-google_play_services --no-ui -a
+RUN echo "y" | android update sdk --filter addon-google_apis-google-3 --no-ui -a
 
 RUN echo "y" | android update sdk --filter build-tools-23.0.0 --no-ui -a
 RUN echo "y" | android update sdk --filter android-23 --no-ui -a
+RUN echo "y" | android update sdk --filter sys-img-armeabi-v7a-android-23" --no-ui -a
 RUN echo "y" | android update sdk --filter sys-img-armeabi-v7a-addon-google_apis-google-23 --no-ui -a
-RUN echo "y" | android update sdk --filter addon-google_apis-google-23 --no-ui -a
 
 # Available SDK targets
 RUN android list targets
@@ -49,6 +50,7 @@ RUN echo "no" | android create avd \
                 --device "Nexus 5" \
                 --name test \
                 --target "Google Inc.:Google APIs:23" \
+                --abi armeabi-v7a \
                 --skin WVGA800 \
                 --sdcard 512M \
                 --tag google_apis
