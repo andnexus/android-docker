@@ -26,6 +26,9 @@ ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/java/
 RUN apt-get install -y --no-install-recommends git
 RUN chown -R root:root /opt/android-sdk-linux
 
+# Available SDK targets
+RUN android list targets
+
 # Install latest android tools and system images
 RUN echo "y" | android update sdk --filter tools --no-ui --force
 RUN echo "y" | android update sdk --filter platform-tools --no-ui --force
@@ -40,9 +43,6 @@ RUN echo "y" | android update sdk --filter build-tools-23.0.0 --no-ui -a
 RUN echo "y" | android update sdk --filter android-23 --no-ui -a
 RUN echo "y" | android update sdk --filter sys-img-armeabi-v7a-android-23" --no-ui -a
 RUN echo "y" | android update sdk --filter sys-img-armeabi-v7a-addon-google_apis-google-23 --no-ui -a
-
-# Available SDK targets
-RUN android list targets
 
 # All SDK components
 android list sdk --extended --no-ui --all
