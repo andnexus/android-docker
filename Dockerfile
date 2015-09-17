@@ -13,9 +13,9 @@ RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y --force
 # Install Android SDK
 RUN apt-get update -qq
 RUN apt-get install -y --no-install-recommends wget
-RUN cd /opt && wget -q http://dl.google.com/android/android-sdk_r24.3.3-linux.tgz
-RUN cd /opt && tar xzf android-sdk_r24.3.3-linux.tgz
-RUN cd /opt && rm -f android-sdk_r24.3.3-linux.tgz
+RUN cd /opt && wget -q http://dl.google.com/android/android-sdk_r24.3.4-linux.tgz
+RUN cd /opt && tar xzf android-sdk_r24.3.4-linux.tgz
+RUN cd /opt && rm -f android-sdk_r24.3.4-linux.tgz
 
 # Setup environment
 ENV ANDROID_HOME /opt/android-sdk-linux
@@ -53,6 +53,7 @@ RUN echo "y" | android update sdk --filter extra-google-m2repository --no-ui -a
 RUN echo "y" | android update sdk --filter extra-google-google_play_services --no-ui -a
 
 RUN echo "y" | android update sdk --filter build-tools-23.0.0 --no-ui -a
+RUN echo "y" | android update sdk --filter build-tools-23.0.1 --no-ui -a
 RUN echo "y" | android update sdk --filter android-23 --no-ui -a
 RUN echo "y" | android update sdk --filter addon-google_apis-google-23 --no-ui -a
 RUN echo "y" | android update sdk --filter sys-img-armeabi-v7a-android-23 --no-ui -a
