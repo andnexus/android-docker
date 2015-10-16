@@ -13,9 +13,9 @@ RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y --force
 # Install Android SDK
 RUN apt-get update -qq
 RUN apt-get install -y --no-install-recommends wget
-RUN cd /opt && wget -q http://dl.google.com/android/android-sdk_r24.3.4-linux.tgz
-RUN cd /opt && tar xzf android-sdk_r24.3.4-linux.tgz
-RUN cd /opt && rm -f android-sdk_r24.3.4-linux.tgz
+RUN cd /opt && wget -q http://dl.google.com/android/android-sdk_r24.4-linux.tgz
+RUN cd /opt && tar xzf android-sdk_r24.4-linux.tgz
+RUN cd /opt && rm -f android-sdk_r24.4-linux.tgz
 
 # Setup environment
 ENV ANDROID_HOME /opt/android-sdk-linux
